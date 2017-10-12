@@ -1,0 +1,18 @@
+FROM node:8.6.0-slim
+
+# create app directory
+WORKDIR /usr/scr/app
+
+# install app dependencies
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+# bundle app source
+COPY . .
+
+# export port
+EXPOSE 8080
+
+# run start command
+CMD [ "npm", "start" ]

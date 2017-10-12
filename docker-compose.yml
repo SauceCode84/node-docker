@@ -1,0 +1,46 @@
+version: "2"
+
+services:
+  rethinkdb:
+    image: rethinkdb:2.3.6
+    hostname: rethinkdb
+    networks:
+      - web-net
+    ports:
+      - "28015"
+      - "29015"
+      - "8080"
+    volumes:
+      - ./data:/data
+  nodeapp1:
+    build: ./app
+    hostname: "nodeapp1"
+    ports:
+      - "8080"
+    networks:
+      - web-net
+    links:
+      - rethinkdb
+  nodeapp2:
+    build: ./app
+    hostname: "nodeapp2"
+    ports:
+      - "8080"
+    networks:
+      - web-net
+    links:
+      - rethinkdb
+  nginx-load-balance:
+    build: ./nginx-load-balance
+    ports:
+      - "9000:80"
+    networks:
+      - web-net
+    links:
+      - nodeapp1:nodeapp1
+      - nodeapp2:nodeapp2
+
+networks:
+  web-net:
+    driver: bridge
+
