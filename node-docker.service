@@ -1,0 +1,11 @@
+[Unit]
+Description=Node Docker Service
+
+[Service]
+Type=forking
+RemainAfterExit=yes
+ExecStart=/home/rlds/node-docker/start-node-docker.sh
+ExecStop=/home/rlds/node-docker/stop-node-docker.sh
+
+[Install]
+WantedBy=default.target
