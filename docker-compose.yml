@@ -33,7 +33,7 @@ services:
   nginx-load-balance:
     build: ./nginx-load-balance
     ports:
-      - "9000:80"
+      - "80:80"
     networks:
       - web-net
     links:
