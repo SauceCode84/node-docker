@@ -1,4 +1,5 @@
+#!/bin/bash
 
-cd ~/node-docker
+cd /home/rlds/node-docker
 docker-compose build
 docker-compose up -d
