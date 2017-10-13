@@ -10,4 +10,4 @@ RUN npm install -g nodemon
 EXPOSE 8080
 
 # run start command
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]
