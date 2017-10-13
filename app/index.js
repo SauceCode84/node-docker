@@ -6,10 +6,7 @@ const HOST = "0.0.0.0";
 
 const app = new express();
 
-app.get("/", (req, res) => {
-  console.log("request made!");
-  res.send("Hello world!");
-});
+app.use(express.static("public"));
 
 app.listen(PORT, HOST);
 
@@ -30,19 +27,19 @@ r.connect(rethinkConfig)
   })
   .error(err => console.error(err));
 
-setInterval(() => {
+  setInterval(async () => {
   if (!connection) {
     console.error("not connected to RethinkDB...");
     return;
   }
   
-  r.table("info").run(connection)
-    .then(result => {
-      result.each((err, row) => {
-        console.log(row);
-      });    
-    })
-    .error(err => {
-      console.error(err);
-    })
+  try {
+    let result = await r.table("info").run(connection);
+
+    result.each((err, row) => {
+      console.log(row);
+    });
+  } catch (err) {
+    console.error(err);
+  }
 }, 5000);

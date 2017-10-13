@@ -15,12 +15,10 @@ services:
   nodeapp1:
     build:
       context: ./app
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-Prod
     hostname: "nodeapp1"
     ports:
       - "8080"
-    volumes:
-      - ./app:/usr/scr/app
     networks:
       - web-net
     links:
